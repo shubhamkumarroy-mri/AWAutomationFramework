@@ -32,9 +32,9 @@ public class Hooks {
                     Paths.get("screenshots", scenario.getName().replaceAll("[^a-zA-Z0-9]", "_") + ".png")
             ).setFullPage(true));
             scenario.attach(screenshot, "image/png", "Failure Screenshot");
-            logger.error("❌ Scenario Failed: " + scenario.getName());
+            logger.error("Scenario Failed: " + scenario.getName());
         } else {
-            logger.info("✅ Scenario Passed: " + scenario.getName());
+            logger.info("Scenario Passed: " + scenario.getName());
         }
 
         PlaywrightFactory.closeBrowser();
