@@ -1,16 +1,13 @@
-package test.java.hooks;
+package hooks;
 
 import com.microsoft.playwright.Page;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import main.java.factory.PlaywrightFactory;
-import org.apache.commons.io.FileUtils;
-import main.java.utils.LoggerUtils;
+import factory.PlaywrightFactory;
+import utils.LoggerUtils;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Hooks {

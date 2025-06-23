@@ -1,11 +1,10 @@
-package main.java.config;
+package config;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import main.java.utils.LoggerUtils;
-import org.apache.logging.log4j.LogManager;
+import utils.LoggerUtils;
 import org.apache.logging.log4j.Logger;
 
 public class ConfigReader {
@@ -15,7 +14,7 @@ public class ConfigReader {
 
     static {
         try {
-            String path = "src/main/resources/config.properties";
+            String path = "src\\test\\resources\\config.properties";
             FileInputStream fis = new FileInputStream(path);
             properties = new Properties();
             properties.load(fis);

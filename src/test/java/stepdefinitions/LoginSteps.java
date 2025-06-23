@@ -1,47 +1,45 @@
-package test.java.stepdefinitions;
+package stepdefinitions;
 
 import com.microsoft.playwright.Page;
+
+import factory.PlaywrightFactory;
 import io.cucumber.java.en.*;
-import main.java.config.ConfigReader;
-import main.java.factory.PlaywrightFactory;
+import config.ConfigReader;
+import pages.LoginPage;
 import org.testng.Assert;
-import org.xml.sax.Locator;
 
 public class LoginSteps {
 
     private Page page;
-
-    String url = ConfigReader.get("url");
+    private LoginPage loginPage;
 
     @Given("user is on the login page")
     public void userIsOnLoginPage() {
         page = PlaywrightFactory.getPage();
+        loginPage = new LoginPage(page);
+        String url = ConfigReader.get("url");
+
         if (url == null || url.isEmpty()) {
             throw new IllegalArgumentException("URL is not configured in the properties file");
         }
-        page.navigate(url);
+
+        loginPage.navigateToLoginPage(url);
     }
 
     @When("user logs in with username {string} and password {string}")
-    public void userLogsIn(String username, String password) {
-        page.fill("#username", username);
-        page.fill("#password", password);
-        page.click("#loginbtn-164a-15a5");
+    public void userLogsInWithUsernameAndPassword(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+        loginPage.clickLogin();
     }
 
     @And("user selects profile and client")
     public void userSelectsProfileAndClient() {
-        // Select profile and client if necessary
-        // We can use getProperty method to get the profile and client from the properties file, THOUGH not implemented here
-
-        page.click("selectclientbtn-164a-15a5");
+        loginPage.selectProfileAndClient();
     }
 
     @Then("user should be redirected to the dashboard")
     public void userShouldBeRedirectedToDashboard() {
-        // Check for the text "Dashboard"
-        Locator heading = page.locator("div.alert h5");
-        Assert.assertTrue(heading.textContent().contains("Dashboard"), "Dashboard heading is not visible");
+        Assert.assertTrue(loginPage.isDashboardVisible(), "Dashboard heading is not visible");
     }
-
 }

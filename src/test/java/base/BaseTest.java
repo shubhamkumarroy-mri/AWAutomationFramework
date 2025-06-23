@@ -1,17 +1,19 @@
-package test.java.base;
+package base;
 
 import com.microsoft.playwright.Page;
+
 import factory.PlaywrightFactory;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import utils.ConfigReader;
-import utils.LoggerUtils;
+
 import org.apache.logging.log4j.Logger;
+import utils.LoggerUtils;
 
 public class BaseTest {
 
     protected Page page;
-    private PlaywrightFactory playwrightFactory;
+    // private PlaywrightFactory playwrightFactory;
     protected static Logger logger;
 
     @BeforeClass
@@ -19,8 +21,8 @@ public class BaseTest {
         logger = LoggerUtils.getLogger(BaseTest.class);
         logger.info("===== Test Setup Started =====");
 
-        playwrightFactory = new PlaywrightFactory();
-        page = playwrightFactory.initBrowser(ConfigReader.get("browser"));
+        // playwrightFactory = new PlaywrightFactory();
+        page = PlaywrightFactory.initBrowser();
 
         logger.info("Browser launched and Page instance created.");
     }

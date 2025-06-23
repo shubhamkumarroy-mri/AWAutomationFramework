@@ -1,10 +1,9 @@
-package main.java.factory;
+package factory;
 
 import com.microsoft.playwright.*;
 import config.ConfigReader;
 
-import main.java.utils.LoggerUtils;
-import org.apache.logging.log4j.LogManager;
+import utils.LoggerUtils;
 import org.apache.logging.log4j.Logger;
 
 public class PlaywrightFactory {
