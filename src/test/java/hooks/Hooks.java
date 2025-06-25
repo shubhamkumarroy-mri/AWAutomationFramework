@@ -8,7 +8,10 @@ import factory.PlaywrightFactory;
 import utils.LoggerUtils;
 import org.apache.logging.log4j.Logger;
 
+import java.nio.file.Files;
 import java.nio.file.Paths;
+
+import utils.ScreenshotUtils;
 
 public class Hooks {
 
@@ -24,12 +27,18 @@ public class Hooks {
     @After
     public void tearDown(Scenario scenario) {
         if (scenario.isFailed()) {
-            // Capture screenshot
-            byte[] screenshot = page.screenshot(new Page.ScreenshotOptions().setPath(
-                    Paths.get("screenshots", scenario.getName().replaceAll("[^a-zA-Z0-9]", "_") + ".png")
-            ).setFullPage(true));
-            scenario.attach(screenshot, "image/png", "Failure Screenshot");
+            
+            String screenshotPath = ScreenshotUtils.takeScreenshot(page, scenario.getName());
+
+            try {
+                byte[] screenshot = Files.readAllBytes(Paths.get(screenshotPath));
+                scenario.attach(screenshot, "image/png", "Failure Screenshot");
+            } catch (java.io.IOException e) {
+                logger.error("Failed to read screenshot file: " + screenshotPath, e);
+            }
+
             logger.error("Scenario Failed: " + scenario.getName());
+        
         } else {
             logger.info("Scenario Passed: " + scenario.getName());
         }

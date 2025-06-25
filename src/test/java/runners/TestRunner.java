@@ -15,6 +15,7 @@ import org.testng.annotations.DataProvider;
     monochrome = true,
     publish = true
 )
+
 public class TestRunner extends AbstractTestNGCucumberTests {
 
     @Override
